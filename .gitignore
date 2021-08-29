@@ -1,4 +1,11 @@
 .DS_Store
 */.DS_Store
 
+.quasar
+.vscode
+.editorconfig
+.eslintignore
+.eslintrc.js
+.postcssrc.js
+
 node_modules/
