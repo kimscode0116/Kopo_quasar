@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          어플 타이틀
+          This is title
         </q-toolbar-title>
 
         <!-- <div>Quasar v{{ $q.version }}</div> -->
@@ -24,12 +24,12 @@
       show-if-above
       side="left"
       bordered
-      class="bg-grey-1"
+      class="bg-white"
     >
       <q-list>
         <q-item-label
           header
-          class="text-grey-8"
+          class="bg-teal-10 text-white text-center"
         >
           Essential Links
         </q-item-label>
@@ -53,47 +53,54 @@
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksList = [
-  {
+
+   {
     title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
+    caption: 'Based on quasar.dev',
+    icon: 'home',
     link: 'https://quasar.dev'
   },
+  // {
+  //   title: 'Github',
+  //   caption: 'github.com/quasarframework',
+  //   icon: 'code',
+  //   link: 'https://github.com/quasarframework'
+  // },
+  // {
+  //   title: 'Discord Chat Channel',
+  //   caption: 'chat.quasar.dev',
+  //   icon: 'chat',
+  //   link: 'https://chat.quasar.dev'
+  // },
+  // {
+  //   title: 'Forum',
+  //   caption: 'forum.quasar.dev',
+  //   icon: 'record_voice_over',
+  //   link: 'https://forum.quasar.dev'
+  // },
+  // {
+  //   title: 'Twitter',
+  //   caption: '@quasarframework',
+  //   icon: 'rss_feed',
+  //   link: 'https://twitter.quasar.dev'
+  // },
+  // {
+  //   title: 'Quasar Awesome',
+  //   caption: 'Community Quasar projects',
+  //   icon: 'favorite',
+  //   link: 'https://awesome.quasar.dev'
+  // },
   {
     title: 'Github',
-    caption: 'github.com/quasarframework',
+    caption: 'github.com/kimscode0116',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: 'https://github.com/kimscode0116'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+    title: 'Portfolio',
+    caption: 'Profile web site at Netlify',
+    icon: 'language',
+    link: 'https://stoic-villani-435777.netlify.app/#/'
   }
 ];
 
