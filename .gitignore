@@ -6,6 +6,6 @@
 .editorconfig
 .eslintignore
 .eslintrc.js
-.postcssrc.js
+
 
 node_modules/
