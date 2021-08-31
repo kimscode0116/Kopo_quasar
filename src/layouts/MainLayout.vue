@@ -38,8 +38,9 @@
         <q-item-label
           header
           class="bg-teal-10 text-white text-center"
-        >
-          Essential Links
+      > 
+        <q-icon name="link" size="20px"/> LINKS
+
         </q-item-label>
 
         <EssentialLink

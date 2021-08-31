@@ -89,41 +89,41 @@
                 if (!email.value) {
                     // validationErrors.value.push("<strong>E-mail</strong> cannot be empty.");
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "이메일은 필수로 입력해주세요",
-                        color : "red"
+                        color : "grey"
                     })
                 }
                 else if (/.+@.+/.test(email.value) != true) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "부적절한 이메일 형식입니다.",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
                 // password validation
                 else if (!password.value || !pwCheck.value) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "비밀번호는 필수로 입력해주세요",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
                 else if (/.{6,}/.test(password.value) != true) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "비밀번호는 반드시 6자 이상입니다",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
                 else if (password.value != pwCheck.value) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "비밀번호가 일치하지 않습니다",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
@@ -140,19 +140,20 @@
                     .then(userCredential => {
                         var user = userCredential.user;
 
-                        $router.push({ path: '/signIn'})
                         $q.notify({
-                            position : "top",
-                            message : "회원가입이 완료되었습니다. 로그인으로 이동합니다.",
-                            color : "blue"
+                            position : "center",
+                            message : "회원가입이 완료되었습니다. 로그인이 필요합니다.",
+                            color : "teal-10"
                         })
+                        $router.push({ path: '/signIn'})
+
                         console.log("Success! ", user.email);
                     })
                     .catch(error => {
                         $q.notify({
-                            position : "top",
-                            message : "이메일에 잘못된 정보가 있습니다. 다시 입력해주세요.",
-                            color : "blue"
+                            position : "center",
+                            message : "회원가입이 어렵습니다. 다시 입력해주세요",
+                            color : "grey"
                         })
                         console.log("Failed!", error.message);
                     });

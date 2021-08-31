@@ -65,33 +65,33 @@
                 // email validation
                 if(!email.value) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "이메일을 입력하세요",
-                        color : "red"
+                        color : "grey"
                     })
                 }
                 else if(/.+@.+/.test(email.value) != true) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "이메일을 다시 확인해주세요",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
                 // password validation
                 else if (!password.value) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "비밀번호를 입력하세요",
-                        color : "red"
+                        color : "grey"
                     })
                 }
 
                 else if (/.{6,}/.test(password.value) != true) {
                     $q.notify({
-                        position : "top",
+                        position : "center",
                         message : "비밀번호는 최소 6자리입니다.",
-                        color : "red"
+                        color : "grey"
                     })
                 }
                  // when valid then sign in
@@ -109,12 +109,14 @@
                         // Signed in
                         var user = userCredential.user;
 
-                        $router.push({ path: '/'})
                         $q.notify({
                             position : "top",
                             message : "로그인을 환영합니다",
-                            color : "blue"
+                            color : "teal-10"
                         })
+
+                        $router.push({ path: '/'})
+
 
                     })
                     .catch((error) => {
@@ -123,9 +125,9 @@
                         console.log(errorMessage)
 
                         $q.notify({
-                            position : "top",
+                            position : "center",
                             message : "잘못된 정보입니다. ",
-                            color : "red"
+                            color : "grey"
                         })
                     });
 
