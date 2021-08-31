@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header reveal elevated class="bg-teal-10">
+    <q-header class="bg-white">
       <q-toolbar>
         <q-btn
           flat
@@ -8,14 +8,22 @@
           round
           icon="menu"
           aria-label="Menu"
+          color="teal-10"
           @click="toggleLeftDrawer"
         />
 
         <q-toolbar-title>
-          This is title
+          
         </q-toolbar-title>
 
-        <!-- <div>Quasar v{{ $q.version }}</div> -->
+        <div style="color:black; text-align:right;">
+          <!-- Quasar v{{ $q.version }} -->
+          <!-- <div class="row items-center no-wrap"> -->
+              <a href="/" style="text-decoration:none; color:black">
+                <q-icon name="home" size="20px"/>
+              </a>
+          <!-- </div> -->
+          </div>
       </q-toolbar>
     </q-header>
 

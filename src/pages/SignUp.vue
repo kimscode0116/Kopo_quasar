@@ -9,8 +9,27 @@
             </div>
 
             <div class="q-gutter-y-md column">
-                <q-input filled="filled" v-model="email" label="email"></q-input>
-                <q-input filled="filled" v-model="name" label="name"></q-input>
+                
+                <q-input bottom-slots filled="filled" v-model="email" label="email">
+
+                     <template v-slot:append>
+                    <q-icon name="close" @click="email = ''" class="cursor-pointer" />
+                    </template>
+
+                    <template v-slot:hint>
+                    <p>이메일을 입력하세요</p>
+                    </template>
+                    
+                </q-input>
+
+                <q-input bottom-slots filled="filled" v-model="name" label="name">
+                     <template v-slot:append>
+                    <q-icon name="close" @click="name = ''" class="cursor-pointer" />
+                    </template>
+                    <template v-slot:hint>
+                    <p>이름을 입력하세요</p>
+                    </template>
+                </q-input>
 
                 <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Password">
                     <template v-slot:append>
@@ -20,6 +39,7 @@
                         @click="isPwd = !isPwd"
                         />
                     </template>
+                    
                 </q-input>
 
                 <q-input v-model="pwCheck" filled :type="isPwd ? 'password' : 'text'" label="Repeat Password">
@@ -32,9 +52,10 @@
                     </template>
                 </q-input>
 
-                <q-btn class="bg-teal-10" color="white" @click="register()" label="Sign Up"/>
+                <q-btn class="bg-teal-10" color="white" @click="validate" label="Sign Up"/>
                 <div class="q-ma-xl" style="text-align:center;"> 
-                <router-link to="/" style="text-decoration:underline; color:teal;">Move to <b>Login</b> Page</router-link>
+                <router-link to="/SignIn" style="text-decoration:underline; color:teal;">Move to <b>Login</b> Page</router-link><br />
+                <router-link to="/" style="text-decoration:underline; color:teal;">Move to <b>Main</b> Page</router-link>
                 </div>
             </div>
         </div>
@@ -43,28 +64,109 @@
 
 <script>
     import {defineComponent, ref} from 'vue';
+    import { auth } from 'src/boot/firebase'
+    import { useQuasar } from 'quasar'
+    import { useRouter, useRoute } from 'vue-router';
 
     export default defineComponent({
-        name: 'PageIndex',
+        name: 'newUser',
 
         setup() {
+            const $q = useQuasar()
+            const $router = useRouter()
+            const $route = useRoute()
+
             let email = ref('')
             let name = ref('')
             let password = ref('')
             let isPwd = ref('true')
             let pwCheck = ref('')
+            let validationErrors = ref([])
 
-            let register = () => {
+             let validate = () => {
+                
+                // email validation
+                if (!email.value) {
+                    // validationErrors.value.push("<strong>E-mail</strong> cannot be empty.");
+                    $q.notify({
+                        position : "top",
+                        message : "이메일은 필수로 입력해주세요",
+                        color : "red"
+                    })
+                }
+                else if (/.+@.+/.test(email.value) != true) {
+                    $q.notify({
+                        position : "top",
+                        message : "부적절한 이메일 형식입니다.",
+                        color : "red"
+                    })
+                }
+
+                // password validation
+                else if (!password.value || !pwCheck.value) {
+                    $q.notify({
+                        position : "top",
+                        message : "비밀번호는 필수로 입력해주세요",
+                        color : "red"
+                    })
+                }
+
+                else if (/.{6,}/.test(password.value) != true) {
+                    $q.notify({
+                        position : "top",
+                        message : "비밀번호는 반드시 6자 이상입니다",
+                        color : "red"
+                    })
+                }
+
+                else if (password.value != pwCheck.value) {
+                    $q.notify({
+                        position : "top",
+                        message : "비밀번호가 일치하지 않습니다",
+                        color : "red"
+                    })
+                }
+
+                // when valid then sign in
+                else if(validationErrors.value <= 0) {
+                    newUser();
+                }
+            }
+
+            let newUser = () => {
                 console.log("called" + email.value);
+
+                auth.createUserWithEmailAndPassword(email.value, password.value)
+                    .then(userCredential => {
+                        var user = userCredential.user;
+
+                        $router.push({ path: '/signIn'})
+                        $q.notify({
+                            position : "top",
+                            message : "회원가입이 완료되었습니다. 로그인으로 이동합니다.",
+                            color : "blue"
+                        })
+                        console.log("Success! ", user.email);
+                    })
+                    .catch(error => {
+                        $q.notify({
+                            position : "top",
+                            message : "이메일에 잘못된 정보가 있습니다. 다시 입력해주세요.",
+                            color : "blue"
+                        })
+                        console.log("Failed!", error.message);
+                    });
 
             }
             return {
                 email, 
-                register, 
+                newUser, 
                 name, 
                 pwCheck,
                 isPwd,
-                password
+                password,
+                validate
+                
             }
         }
 

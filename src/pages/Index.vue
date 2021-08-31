@@ -1,59 +1,90 @@
-
 <template>
-    <div id="q-app" style="min-height: 100vh;">
-        <div class="q-pa-xl">
+    <div class="q-pb-md">
+        <q-carousel
+            v-model="slide"
+            transition-prev="slide-right"
+            transition-next="slide-left"
+            animated="animated"
+            color="red"
+            control-color="red"
+            class="rounded-borders">
 
-            <div class="q-ma-sm" style="font-size:30px; text-align:center;">
-                <b>Login</b>
-            </div>
-
-            <div class="q-gutter-y-md column" >
-                <q-input filled="filled" v-model="email" label="email"></q-input>
-                
-                <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Password">
-                    <template v-slot:append>
-                        <q-icon
-                        :name="isPwd ? 'visibility_off' : 'visibility'"
-                        class="cursor-pointer"
-                        @click="isPwd = !isPwd"
-                        />
-                    </template>
-                </q-input>
-
-                    <div class="q-gutter-sm">
-                    <q-checkbox v-model="remember" label="Remember Me" color="teal" />
-                    </div>
-
-                <q-btn class="bg-teal-10" color="white" @click="register()" label="Sign In"/>
-                
-                <div class="q-ma-xl" style="text-align:center;">
-                <router-link to="signUp" style="text-decoration:underline; color:teal;">Move to <b>SignUp</b> Page</router-link>
+            <q-carousel-slide name="style" class="column no-wrap flex-center">
+                <q-icon name="face" color="black" size="56px"/>
+                <div class="q-mb-md text-center">
+                    <strong style="font-size:40px;">Welcome</strong><br/>
+                    <a style="font-size:20px;">It is a goooood opportunity
+                        <br/>to choose our website.</a>
                 </div>
-            </div>
+            </q-carousel-slide>
+
+            <q-carousel-slide name="signIn" class="column no-wrap flex-center">
+                <q-icon name="people_outline" color="black" size="56px"/>
+                <div class="q-mt-md text-center">
+                    <div class="q-mb-md onlyfont" style="background-color:lightgrey;color:black;">
+                        If you are already a member
+                    </div>
+                    <q-btn outline rounded color="teal-10" type='a' href='/#/SignIn'>Login here</q-btn>
+
+                    <!-- <q-btn flat="flat" type="a" href='/#/SignIn'>로그인</q-btn> -->
+                </div>
+            </q-carousel-slide>
+
+            <q-carousel-slide name="signUp" class="column no-wrap flex-center">
+                <q-icon name="person_add" color="black" size="56px"/>
+                <div class="q-mt-md text-center">
+                    <div class ="q-mb-md onlyfont" style="background: black;color:white;">
+                        If you would like to join
+                    </div>
+                    <q-btn outline rounded color="teal-10" type="a" href='/#/SignUp'>SignUp here</q-btn>
+                    <!-- <q-btn flat="flat" type="a" href='/#/SignUp'>회원가입</q-btn> -->
+                </div>
+            </q-carousel-slide>
+
+        </q-carousel>
+
+        <div class="row justify-center">
+            <q-btn-toggle
+                toggle-color="teal-10"
+                v-model="slide"
+                :options="[
+          { slot: 'one' ,value: 'style' },
+          { label: 1, value: 'signIn' },
+          { label: 2, value: 'signUp' }
+        ]"> 
+        <template v-slot:one>
+          <div class="row items-center no-wrap">
+            <q-icon name="home" />
+          </div>
+        </template>
+
+        </q-btn-toggle>
         </div>
     </div>
 </template>
 
+<style scoped="scoped">
+    @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+    .my-card {
+        width: 100%;
+        height: 50%;
+    }
+    .onlyfont {
+        font-family: 'ZCOOL KuaiLe', cursive;
+        font-size:20px;
+        text-align: center;
+
+    }
+
+</style>
+
 <script>
-    import {defineComponent, ref} from 'vue';
-
+    import {defineComponent, ref} from 'vue'
     export default defineComponent({
-        name: 'PageIndex',
-   
         setup() {
-            let email = ref('')
-            let password = ref('')
-            let isPwd = ref('true')
-            let remember = ref('true')
-            let register = () => {
-                console.log("called" +email.value);
+            const slide = ref('style')
 
-            }
-            return {
-              email, register, password, isPwd, remember
-              }
+            return {slide}
         }
-
     })
 </script>
-
