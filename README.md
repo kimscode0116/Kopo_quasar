@@ -1,4 +1,11 @@
-# Quasar App (kopo)
+# Kopo_quasar_HomeWork
+## 20210830
+ - SignUp & Login Page 
+ - Project Bulid
+
+https://upbeat-shannon-c16564.netlify.app/#/
+
+<!-- # Quasar App (kopo)
 
 A Quasar Framework app
 
@@ -25,3 +32,4 @@ quasar build
 ### Customize the configuration
 See [Configuring quasar.conf.js](https://v2.quasar.dev/quasar-cli/quasar-conf-js).
 # Kopo_quasar
+ -->
