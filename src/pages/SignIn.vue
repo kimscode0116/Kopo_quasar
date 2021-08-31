@@ -7,13 +7,18 @@
             </div>
 
             <div class="q-gutter-y-md column">
-                <q-input filled="filled" v-model="email" label="email"></q-input>
+                <q-input slots v-model="email" label="email" color="teal-7">
+
+                    <template v-slot:append>
+                    <q-icon name="close" @click="email = ''" class="cursor-pointer" />
+                    </template>
+
+                </q-input>
 
                 <q-input
                     v-model="password"
-                    filled="filled"
                     :type="isPwd ? 'password' : 'text'"
-                    label="Password">
+                    label="Password" color="teal-7">
                     <template v-slot:append>
                         <q-icon
                             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -57,7 +62,7 @@
             let email = ref('')
             let password = ref('')
             let isPwd = ref('true')
-            let remember = ref('true')
+            let remember = ref('false')
             let validationErrors = ref('')
 
             let validate = () => {

@@ -10,7 +10,7 @@
 
             <div class="q-gutter-y-md column">
                 
-                <q-input bottom-slots filled="filled" v-model="email" label="email">
+                <q-input bottom-slots v-model="email" label="email" color="teal-7">
 
                      <template v-slot:append>
                     <q-icon name="close" @click="email = ''" class="cursor-pointer" />
@@ -22,7 +22,7 @@
                     
                 </q-input>
 
-                <q-input bottom-slots filled="filled" v-model="name" label="name">
+                <q-input bottom-slots v-model="name" label="name" color="teal-7">
                      <template v-slot:append>
                     <q-icon name="close" @click="name = ''" class="cursor-pointer" />
                     </template>
@@ -31,7 +31,7 @@
                     </template>
                 </q-input>
 
-                <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Password">
+                <q-input bottom-slots v-model="password" :type="isPwd ? 'password' : 'text'" label="Password" color="teal-7">
                     <template v-slot:append>
                         <q-icon
                         :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -39,16 +39,24 @@
                         @click="isPwd = !isPwd"
                         />
                     </template>
-                    
+
+                    <template v-slot:hint>
+                    <p>최소 6자리 이상의 비밀번호를 입력하세요</p>
+                    </template>
+                
                 </q-input>
 
-                <q-input v-model="pwCheck" filled :type="isPwd ? 'password' : 'text'" label="Repeat Password">
+                <q-input bottom-slots v-model="pwCheck" :type="isPwd ? 'password' : 'text'" label="Repeat Password" color="teal-7">
                     <template v-slot:append>
                         <q-icon
                         :name="isPwd ? 'visibility_off' : 'visibility'"
                         class="cursor-pointer"
                         @click="isPwd = !isPwd"
                         />
+                    </template>
+
+                    <template v-slot:hint>
+                    <p>비밀번호를 다시 한 번 입력해주세요</p>
                     </template>
                 </q-input>
 
