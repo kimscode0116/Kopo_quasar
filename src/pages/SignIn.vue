@@ -50,6 +50,7 @@
     import { auth } from 'src/boot/firebase'
     import { useQuasar } from 'quasar'
     import { useRouter, useRoute } from 'vue-router'
+    import {useStore, mapActions, mapGetters } from 'vuex'
 
     export default defineComponent({
         name: 'loginUser',
@@ -58,12 +59,14 @@
             const $q = useQuasar()
             const $router = useRouter()
             const $route = useRoute()
+            const $store = useStore()
 
             let email = ref('')
             let password = ref('')
             let isPwd = ref('true')
             let remember = ref('false')
             let validationErrors = ref('')
+            let userName = ref('')
 
             let validate = () => {
 
@@ -113,6 +116,9 @@
                     .then((userCredential) => {
                         // Signed in
                         var user = userCredential.user;
+                        // console.log(user.displayName);
+
+                        $store.commit("setFireUser", user)
 
                         $q.notify({
                             position : "top",
@@ -121,7 +127,6 @@
                         })
 
                         $router.push({ path: '/'})
-
 
                     })
                     .catch((error) => {
@@ -139,7 +144,12 @@
             }
 
             
-            return {email, password, loginUser, isPwd, remember, validate}
+            return {email, password, loginUser, isPwd, remember, validate, userName}
+        },
+        computed: {
+        ...mapGetters(["getFireUser", "isUserAuth"])
+        // signOutActions() {} 라는애가 있는데, vuex.signOutAction(){}랑 똑같으니
+        // 맵핑해줘!(예시임)
         }
 
     })

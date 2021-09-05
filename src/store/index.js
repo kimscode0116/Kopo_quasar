@@ -11,6 +11,9 @@ import { createStore } from 'vuex'
  * async/await or return a Promise which resolves
  * with the Store instance.
  */
+import { auth } from 'src/boot/firebase'
+
+
 
 export default store(function (/* { ssrContext } */) {
   const Store = createStore({
@@ -18,6 +21,36 @@ export default store(function (/* { ssrContext } */) {
       // example
     },
 
+    state : {
+      fireUser:null
+    },
+    actions: {
+      signOutAction({commit}) {
+        auth.signOut().then(() => {
+          commit("setFireUser", null) //동기function 바로 반응함
+        })
+      },
+        authAction({commit}) {
+          auth.onAuthStateChanged(user => {
+            if(user) {
+              commit("setFireUser", user)
+            }
+          })
+        }
+    },
+    mutations: { //세터
+      setFireUser(state, firebaseUser) {
+        state.fireUser = firebaseUser
+      }
+    },
+    getters: {
+      getFireUser(state) {
+        return state.fireUser
+      },
+      isUserAuth (state) {
+        return !!state.fireUser
+      }
+    },
     // enable strict mode (adds overhead!)
     // for dev mode and --debug builds only
     strict: process.env.DEBUGGING
@@ -25,3 +58,4 @@ export default store(function (/* { ssrContext } */) {
 
   return Store
 })
+

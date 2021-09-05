@@ -146,7 +146,8 @@
 
                 auth.createUserWithEmailAndPassword(email.value, password.value)
                     .then(userCredential => {
-                        var user = userCredential.user;
+                        var user = userCredential.user
+                        user.name = name.value
 
                         $q.notify({
                             position : "center",
@@ -154,7 +155,6 @@
                             color : "teal-10"
                         })
                         $router.push({ path: '/signIn'})
-
                         console.log("Success! ", user.email);
                     })
                     .catch(error => {
