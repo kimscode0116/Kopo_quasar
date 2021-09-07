@@ -125,7 +125,7 @@
                             message : "로그인을 환영합니다",
                             color : "teal-10"
                         })
-
+                        console.log(auth);
                         $router.push({ path: '/'})
 
                     })

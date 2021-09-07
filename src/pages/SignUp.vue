@@ -75,7 +75,8 @@
     import { auth } from 'src/boot/firebase'
     import { useQuasar } from 'quasar'
     import { useRouter, useRoute } from 'vue-router';
-
+    import { db } from "src/boot/firebase"
+    
     export default defineComponent({
         name: 'newUser',
 
@@ -154,6 +155,20 @@
                             message : "회원가입이 완료되었습니다. 로그인이 필요합니다.",
                             color : "teal-10"
                         })
+                        db.collection("users").add({
+                            id: email.value,
+                            name: name.value,
+                            gender: "female",
+                            addr: "서울"
+                        })
+                        .then((docRef) => {
+                            console.log("Document written with ID: ", docRef.id);
+                            
+                        })
+                        .catch((error) => {
+                            console.error("Error adding document: ", error);
+                            
+                        });
                         $router.push({ path: '/signIn'})
                         console.log("Success! ", user.email);
                     })

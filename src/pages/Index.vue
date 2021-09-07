@@ -106,8 +106,8 @@
     <script>
         import {defineComponent, ref} from 'vue'
         import {mapActions, mapGetters} from 'vuex'
-        import {auth} from 'src/boot/firebase'
-        import { useRouter, useRoute } from 'vue-router';
+        import { auth, db } from 'src/boot/firebase'
+        import { useRouter, useRoute } from 'vue-router'
         import { useQuasar } from 'quasar'
 
 
@@ -126,9 +126,7 @@
                 auth.onAuthStateChanged((user) => {
                     if (user) {
                         userEmail.value = user.email
-                        userName.value = user.displayName
                         loginState.value = 'true'
-                        console.log(user.displayName)
 
                     } else {
                         console.log("Login Changed")
@@ -150,12 +148,39 @@
 
                 return {slide, userName, userEmail, loginState,logout}
             },
-            // updated() {     console.log("test : " + this.getFireUser) if(this.getFireUser
-            // != null) {     this.userName = this.getFireUser.displayName
-            // console.log("1 : " + this.userName);     } },
+             updated() {     
+                if(this.getFireUser != null && this.userName == '') {
+                    db.collection("users").where("id", "==", this.getFireUser.email )
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            // doc.data() is never undefined for query doc snapshots
+                            console.log(doc.id, " => ", doc.data());
+                            this.userName = doc.data().name
+                        });
+                    })
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
+                }
+            },
             mounted() {
                 this.authAction()
-                console.log("monted called");
+                console.log("monted called")
+                if(this.getFireUser != null) {
+                    db.collection("users").where("id", "==", this.getFireUser.email )
+                    .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            // doc.data() is never undefined for query doc snapshots
+                            console.log(doc.id, " => ", doc.data());
+                            this.userName = doc.data().name
+                        });
+                    })
+                    .catch((error) => {
+                        console.log("Error getting documents: ", error);
+                    });
+                }
             },
 
             computed: {
