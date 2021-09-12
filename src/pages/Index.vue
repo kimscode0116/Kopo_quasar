@@ -47,6 +47,13 @@
                             type='a'
                             href='/#/SignIn'>Login here</q-btn>
 
+                            <q-btn
+                            outline="outline"
+                            rounded="rounded"
+                            color="teal-10"
+                            type='a'
+                            href='/#/myinfo'>mypage</q-btn>
+
                         <!-- <q-btn flat="flat" type="a" href='/#/SignIn'>로그인</q-btn> -->
                     </div>
                 </q-carousel-slide>
@@ -105,7 +112,7 @@
 
     <script>
         import {defineComponent, ref} from 'vue'
-        import {mapActions, mapGetters} from 'vuex'
+        import { mapActions, mapGetters } from 'vuex'
         import { auth, db } from 'src/boot/firebase'
         import { useRouter, useRoute } from 'vue-router'
         import { useQuasar } from 'quasar'

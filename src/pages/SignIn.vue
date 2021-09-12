@@ -127,6 +127,14 @@
                         })
                         console.log(auth);
                         $router.push({ path: '/'})
+                       
+                        if (remember.value == true) {
+                            localStorage.username = email.value;
+                            localStorage.checkbox = remember.value;
+                        } else {
+                            localStorage.username = "";
+                            localStorage.checkbox = "";
+                        }
 
                     })
                     .catch((error) => {
@@ -150,6 +158,14 @@
         ...mapGetters(["getFireUser", "isUserAuth"])
         // signOutActions() {} 라는애가 있는데, vuex.signOutAction(){}랑 똑같으니
         // 맵핑해줘!(예시임)
+        },
+        mounted(){
+            if(localStorage.checkbox && localStorage.checkbox !==""){
+                this.remember = ref('true')
+                this.email = localStorage.username
+            } else {
+                this.remember = false
+            }
         }
 
     })
