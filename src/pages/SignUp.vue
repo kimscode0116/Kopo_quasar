@@ -148,11 +148,13 @@
                 auth.createUserWithEmailAndPassword(email.value, password.value)
                     .then(userCredential => {
                         var user = userCredential.user
-                        user.name = name.value
+                        user.updateProfile({
+                            displayName: name.value,
+                        });
 
                         $q.notify({
                             position : "center",
-                            message : "회원가입이 완료되었습니다. 로그인이 필요합니다.",
+                            message : "회원가입이 완료되었습니다.",
                             color : "teal-10"
                         })
                         db.collection("users").add({
@@ -169,7 +171,7 @@
                             console.error("Error adding document: ", error);
                             
                         });
-                        $router.push({ path: '/signIn'})
+                        $router.push({ path: '/main'})
                         console.log("Success! ", user.email);
                     })
                     .catch(error => {
